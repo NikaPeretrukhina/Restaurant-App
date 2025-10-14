@@ -1,4 +1,4 @@
-import { useState } from 'react'
+
 import Burger from './components/Burger'
 import Drink from './components/Drink'
 
@@ -137,10 +137,10 @@ export default function App() {
         <div className="w-screen">
 
             {jsonData.offered_burgers.map((b, i) => (
-                <Burger key={i} burger={b} />))}
+                <Burger key={b.name} burger={b} />))}
 
             {jsonData.offered_drinks.map((d, i) => (
-                <Drink key={i} drink={d} />
+                <Drink key={d.name} drink={d} />
             ))}
 
         </div>

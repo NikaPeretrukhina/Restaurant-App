@@ -37,7 +37,7 @@ export default function Drink({drink}){
                     
                     <div >
                         <p className="text-xs text-gray-400 font-medium">Allergens</p>
-                        <div className="bg-orange-100 pl-2 p-1 rounded-md text-sm font-normal">{drink.allergens.join(", ")}</div>
+                        <div className="bg-orange-100 pl-2 p-1 rounded-md text-sm font-normal">{drink?.allergens?.join(", ")}</div>
                     </div>
                 </div>
             </div>

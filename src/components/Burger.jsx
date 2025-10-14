@@ -1,6 +1,6 @@
 
 export default function Burger({ burger }) {
-    
+
     // // mock burger
     // burger = {
     //     name: "Big Burger",
@@ -27,13 +27,13 @@ export default function Burger({ burger }) {
             </div>
             <div className="w-[90%] flex flex-col gap-4 self-center-safe">
                 <div className="w-full">
-                    <img className="rounded-[2%] object-cover" 
-                        src={burger.info.img} 
-                        alt="Big Burger" 
+                    <img className="rounded-[2%] object-cover"
+                        src={burger.info.img}
+                        alt="Big Burger"
                     />
                 </div>
                 <div className="flex justify-between">
-                    <div className="flex flex-col items-center"> 
+                    <div className="flex flex-col items-center">
                         <span className="font-bold">{burger.price_usd} USD</span>
                         <p className="text-xs text-gray-400 font-medium">Price</p>
                     </div>
@@ -47,17 +47,28 @@ export default function Burger({ burger }) {
                     </div>
                 </div>
                 <div className="flex flex-col gap-3">
-                    <hr className="text-gray-300"/>
+                    <hr className="text-gray-300" />
 
-                    <div className="text-sm">{burger.description}</div>
+                    <div className="text-sm">
+                        {burger.description}
+                    </div>
+
                     <div>
                         <p className="text-xs text-gray-400 font-medium">Special ingrediants</p>
-                        <span className="text-sm">{burger.tags.map((item) => item.charAt(0).toUpperCase() + item.slice(1)).join(", ")}</span>
+                        <span className="text-sm">
+                            {burger?.tags?.length
+                                ? burger.tags.map((item) => item.charAt(0).toUpperCase() + item.slice(1)).join(", ")
+                                : "No tags"}
+                        </span>
                     </div>
-                    <div >
+
+                    <div>
                         <p className="text-xs text-gray-400 font-medium">Allergens</p>
-                        <div className="bg-orange-100 pl-2 p-1 rounded-md text-sm font-normal">{burger.info.allergens_contained_in.join(", ")}</div>
+                        <div className="bg-orange-100 pl-2 p-1 rounded-md text-sm font-normal">
+                            {burger?.info?.allergens_contained_in?.join(", ")}
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
