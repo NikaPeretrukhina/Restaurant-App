@@ -124,24 +124,23 @@ const jsonData = {
         "description": "This is a very delicious coffee",
         "price": 3.99,
         "img": "https://ahoi-production-bucket-public.s3.eu-central-1.amazonaws.com/challenge/assets/drinks_coffee.png"
-    }
-    ]
+    }]
 }
 
 
 export default function App() {
-
-
-
     return (
         <div className="w-screen">
-
-            {jsonData.offered_burgers.map((b, i) => (
-                <Burger key={b.name} burger={b} />))}
-
-            {jsonData.offered_drinks.map((d, i) => (
-                <Drink key={d.name} drink={d} />
-            ))}
+            <div>
+                {jsonData.offered_burgers.map((burger, i) => (
+                    <Burger key={i} burger={burger} />))
+                }
+            </div>
+            <div>
+                {jsonData.offered_drinks.map((drink, i) => (
+                    <Drink key={i} drink={drink} />))
+                }
+            </div>
 
         </div>
     )
