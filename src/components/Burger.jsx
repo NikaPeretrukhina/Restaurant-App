@@ -9,7 +9,6 @@ const burger = burgers.find((i)=>i.name === decodeURIComponent(name));
 if(!burger) return <p>Burger not found.</p>
 //new Brance erstellen für pull request
 //Full Back umchreiben
-//
     return (
         <div className="w-full md:hidden flex flex-col gap-2">
             <div className="grid grid-cols-3 h-12 items-center bg-gray-100 border-b border-gray-300">

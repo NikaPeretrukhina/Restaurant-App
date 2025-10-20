@@ -4,8 +4,6 @@ import MainMenu from "./components/MainMenu";
 import Burger from "./components/Burger";
 import Drink from "./components/Drink";
 
-
-
 export default function App() {
 
     // useState nutzen für das fetch
