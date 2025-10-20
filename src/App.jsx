@@ -1,149 +1,59 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import MainMenu from "./components/MainMenu";
+import Burger from "./components/Burger";
+import Drink from "./components/Drink";
 
-import Burger from './components/Burger'
-import Drink from './components/Drink'
-
-const jsonData = {
-    "name": "Ahoi Burger!",
-    "address": {
-        "street": "Sesame street 1",
-        "city": "Linz",
-        "country": {
-            "country_code": "AT",
-            "name": "Austria"
-        }
-    },
-    "offered_burgers": [{
-        "name": "Big Burger",
-        "description": "This is a very tasty burger",
-        "weight_grams": 180,
-        "price_usd": 9.99,
-        "info": {
-            "in_stock": true,
-            "vegetarian": false,
-            "allergens_contained_in": ["rr", "xx", "mm", "bb"],
-            "availableSince": 1605394800000,
-            "available_until": "2021-12-12T00:00:00Z",
-            "img": "https://ahoi-production-bucket-public.s3.eu-central-1.amazonaws.com/challenge/assets/burger_big_burger.png"
-        },
-        "tags": ["bacon", "tomatoes"]
-    },
-    {
-        "name": "Small Burger",
-        "description": "This is a very tasty but small burger",
-        "weight_grams": 100,
-        "price_usd": 6.99,
-        "info": {
-            "in_stock": true,
-            "vegetarian": true,
-            "allergens_contained_in": [],
-            "availableSince": 1605394800000,
-            "available_until": "2035-11-25T00:00:00Z",
-            "img": "https://ahoi-production-bucket-public.s3.eu-central-1.amazonaws.com/challenge/assets/burger_small_burger.png"
-        }
-    },
-    {
-        "name": "Medium Burger",
-        "description": "This is a very tasty but medium burger",
-        "weight_grams": 150,
-        "price_usd": 8.99,
-        "info": {
-            "in_stock": true,
-            "vegetarian": true,
-            "allergens_contained_in": ["mm"],
-            "img": "https://ahoi-production-bucket-public.s3.eu-central-1.amazonaws.com/challenge/assets/burger_medium_burger.png"
-        },
-        "tags": []
-    },
-    {
-        "name": "Fish Burger",
-        "description": "This is a very tasty fish burger",
-        "price_usd": 10.99,
-        "tags": ["fish", "salad"],
-        "info": {
-            "vegetarian": false,
-            "img": "https://ahoi-production-bucket-public.s3.eu-central-1.amazonaws.com/challenge/assets/burger_fish_burger.png"
-        }
-    },
-    {
-        "name": "Chili Burger",
-        "description": "This is a very tasty and hot burger",
-        "weight_grams": 170,
-        "price_usd": 9.99,
-        "info": {
-            "in_stock": true,
-            "vegetarian": false,
-            "allergens_contained_in": ["rr", "zz", "mm"],
-            "availableSince": 1606823381947,
-            "img": "https://ahoi-production-bucket-public.s3.eu-central-1.amazonaws.com/challenge/assets/burger_chili_burger.png"
-        },
-        "tags": ["bacon", "tomatoes"]
-    },
-    {
-        "name": "Chicken Burger",
-        "description": "This is a very tasty chicken burger",
-        "weight_grams": 140,
-        "price_usd": 9,
-        "info": {
-            "in_stock": false,
-            "vegetarian": false,
-            "allergens_contained_in": ["rr", "zz", "ll"],
-            "img": "https://ahoi-production-bucket-public.s3.eu-central-1.amazonaws.com/challenge/assets/burger_chicken_burger.png"
-        },
-        "tags": ["chicken", "salad"]
-    },
-    {
-        "name": "Veggie Burger",
-        "description": "This is a very tasty veggie burger",
-        "weight_grams": 140,
-        "price_usd": 7.5,
-        "info": {
-            "in_stock": true,
-            "vegetarian": true,
-            "allergens_contained_in": ["vv"],
-            "img": "https://ahoi-production-bucket-public.s3.eu-central-1.amazonaws.com/challenge/assets/burger_veggie_burger.png"
-        },
-        "tags": ["tofu", "salad", "tomatoes"]
-    }
-    ],
-    "offered_drinks": [{
-        "name": "Long island ice tea",
-        "description": "This is a nice cocktail",
-        "price": 4.99,
-        "allergens": ["rr"],
-        "img": "https://ahoi-production-bucket-public.s3.eu-central-1.amazonaws.com/challenge/assets/drinks_long_island.png"
-    },
-    {
-        "name": "Orange juice",
-        "description": "This is a very refreshing fruity drink",
-        "price": 6.99,
-        "allergens": ["oo"],
-        "img": "https://ahoi-production-bucket-public.s3.eu-central-1.amazonaws.com/challenge/assets/drinks_orange_juice.png"
-    },
-    {
-        "name": "Coffee",
-        "description": "This is a very delicious coffee",
-        "price": 3.99,
-        "img": "https://ahoi-production-bucket-public.s3.eu-central-1.amazonaws.com/challenge/assets/drinks_coffee.png"
-    }
-    ]
-}
 
 
 export default function App() {
 
+    // useState nutzen für das fetch
+    const [restaurant, setRestaurant] = useState(null);
+    const [error, setError] = useState(null);
 
+useEffect(() => {
+    fetch("/restaurant.json")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .then(setRestaurant)
+      .catch((err) => setError(err.message));
+  }, []);
+
+  if (error) return <p className="p-4 text-red-500">Fehler: {error}</p>;
+  if (!restaurant) return <p className="p-4">Loading...</p>;
 
     return (
-        <div className="w-screen">
+        <Router>
+            <Routes>
 
-            {jsonData.offered_burgers.map((b, i) => (
-                <Burger key={b.name} burger={b} />))}
+                <Route
+                    path="/"
+                    element={
+                        <MainMenu
+                            name={restaurant.name}
+                            address={restaurant.address}
+                            burgers={restaurant.offered_burgers}
+                            drinks={restaurant.offered_drinks}
+                        />
+                    }
+                />
+                <Route
+                    path="/burger/:name"
+                    element={<Burger burgers={restaurant.offered_burgers} />}
+                />
 
-            {jsonData.offered_drinks.map((d, i) => (
-                <Drink key={d.name} drink={d} />
-            ))}
+                <Route
+                    path="/drink/:name"
+                    element={<Drink drinks={restaurant.offered_drinks} />}
+                />
 
-        </div>
-    )
+            </Routes>
+        </Router>
+
+    );
 }
-
