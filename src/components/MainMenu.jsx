@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 export default function MainMenu({ name, address, burgers, drinks }) {
     return (
         <div className="flex flex-col gap-2">
-            
+
 
             <div className="flex flex-col w-[90%]  md:w-[80%] lg:w-[60%]  gap-4 self-center-safe">
                 <div>
@@ -14,7 +14,7 @@ export default function MainMenu({ name, address, burgers, drinks }) {
                     <p className="pt-1">
                         {address.street}, {address.city}, {address.country.name}
                     </p>
-                </div> 
+                </div>
 
 
                 <h2 className="font-bold text-xl">Burgers</h2>
@@ -30,24 +30,21 @@ export default function MainMenu({ name, address, burgers, drinks }) {
 
                             <div className="absolute bottom-2 right-2 bg-sky-400 bg-opacity-70 text-white text-sm font-semibold px-2 py-1 rounded-lg">
                                 <span className="p-1">{i.price_usd} USD</span>
-                            </div> 
-                        </div>
-                            <div className=" flex flex-row items-center justify-between p-2">
-                                <h3 className="font-semibold text-base">{i.name}</h3>
-                                {i.weight_grams && (<p className="text-gray-500 text-sm">{i.weight_grams} g</p>
-                            )}
                             </div>
+                        </div>
+                        <div className=" flex flex-row items-center justify-between p-2">
+                            <h3 className="font-semibold text-base">{i.name}</h3>
+                            {i.weight_grams && (<p className="text-gray-500 text-sm">{i.weight_grams} g</p>
+                            )}
+                        </div>
                     </Link>
                 ))}
             </div>
 
-
-
-            
             <div className="flex flex-col  w-[90%]  md:w-[80%] lg:w-[60%]  gap-4 self-center-safe mt-8 m-10">
-              
+
                 <h2 className="font-bold text-xl">Drinks</h2>
-                
+
                 <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
                     {drinks.map((i) => (
                         <Link
@@ -55,18 +52,16 @@ export default function MainMenu({ name, address, burgers, drinks }) {
                             to={`/drink/${encodeURIComponent(i.name)}`}
                             className="flex-shrink-0 w-32">
 
-                            <div  className="w-full max-w-md"><img
-                            className="rounded-xl object-cover w-full h-28"
-                            src={i.img} alt={i.name}  />
+                            <div className="w-full max-w-md"><img
+                                className="rounded-xl object-cover w-full h-28"
+                                src={i.img} alt={i.name} />
                                 <h3 className="pt-2">{i.name}</h3>
                             </div>
                         </Link>
-                        
 
-                        
                     ))}
                 </div>
-                
+
 
             </div>
 
@@ -76,5 +71,5 @@ export default function MainMenu({ name, address, burgers, drinks }) {
 
         </div>
     );
-     //weiter eun css design erstellen
+
 }
